@@ -20,6 +20,8 @@
     "prettier/prettier": "error",
     "import/extensions": "off",
     "func-names": "off",
+    "no-underscore-dangle": "off",
+    "class-methods-use-this": "off",
     "camelcase": "off"
   },
   "settings": {

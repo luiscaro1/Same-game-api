@@ -1,0 +1,9 @@
+FROM node:buster-slim
+
+WORKDIR /app
+
+COPY . /app/
+
+RUN npm i
+
+CMD npm run webpack-dev --bind:0.0.0.0

@@ -1,0 +1,7 @@
+FROM node:buster-slim
+
+WORKDIR /app
+
+COPY dist /app/
+
+CMD node bundle.js --bind:0.0.0.0

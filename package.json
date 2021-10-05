@@ -1,0 +1,71 @@
+{
+  "name": "Same-voice-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/Startup.js",
+  "scripts": {
+    "webpack-dev": "BUILD=webpack webpack --watch --stats-error-details",
+    "ts-dev": "nodemon -e ts,js --exec ts-node -r tsconfig-paths/register src/Startup.ts",
+    "dc": "BUILD=CONTAINER docker compose -f docker-compose.dev.yml up --build",
+    "pc": "BUILD=CONTAINER docker compose -f docker-compose.production.yml up --build",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "*.+(ts)": [
+      "eslint --fix"
+    ],
+    "*.+(json|css|md)": [
+      "prettier --write"
+    ],
+    "*.js": "eslint --cache --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luiscaro1/Same-media-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/luiscaro1/Same-video-api/issues"
+  },
+  "homepage": "https://github.com/luiscaro1/Same-video-api#readme",
+  "devDependencies": {
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.13",
+    "@types/lodash": "^4.14.173",
+    "@types/lodash-es": "^4.17.5",
+    "@types/webpack-env": "^1.16.2",
+    "@typescript-eslint/eslint-plugin": "^4.31.1",
+    "@typescript-eslint/parser": "^4.31.1",
+    "@webpack-cli/generators": "^2.3.0",
+    "dotenv-webpack": "^7.0.3",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-import-resolver-alias": "^1.1.2",
+    "eslint-import-resolver-typescript": "^2.5.0",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-prettier": "^4.0.0",
+    "husky": "^7.0.2",
+    "lint-staged": "^11.1.2",
+    "nodemon": "^2.0.12",
+    "nodemon-webpack-plugin": "^4.5.2",
+    "prettier": "^2.4.1",
+    "ts-loader": "^9.2.5",
+    "ts-node": "^10.2.1",
+    "tsconfig-paths": "^3.11.0",
+    "typescript": "^4.4.3",
+    "webpack": "^5.53.0",
+    "webpack-cli": "^4.8.0",
+    "webpack-dev-server": "^4.2.1",
+    "webpack-node-externals": "^3.0.0"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "lodash": "^4.17.21",
+    "lodash-es": "^4.17.21",
+    "socket.io": "^4.2.0"
+  }
+}

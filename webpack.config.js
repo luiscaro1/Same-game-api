@@ -1,7 +1,8 @@
 const path = require('path');
 
+// plugins
 const Dotenv = require('dotenv-webpack');
-
+const webpack = require('webpack');
 const NodemonPlugin = require('nodemon-webpack-plugin');
 
 module.exports = {
@@ -31,5 +32,17 @@ module.exports = {
   plugins: [
     new Dotenv({ path: path.resolve(__dirname, '.env') }),
     new NodemonPlugin(),
+    new webpack.IgnorePlugin({ resourceRegExp: /^pg-native$/ }),
+    new webpack.NormalModuleReplacementPlugin(
+      /m[sy]sql2?|oracle(db)?|sqlite3|pg-(native|query)/
+    ),
+  ],
+
+  externals: [
+    {
+      'utf-8-validate': 'commonjs utf-8-validate',
+      bufferutil: 'commonjs bufferutil',
+      knex: 'commonjs knex',
+    },
   ],
 };

@@ -19,7 +19,8 @@
   "rules": {
     "prettier/prettier": "error",
     "import/extensions": "off",
-    "func-names": "off"
+    "func-names": "off",
+    "camelcase": "off"
   },
   "settings": {
     "import/parsers": {

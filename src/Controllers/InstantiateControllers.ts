@@ -1,8 +1,9 @@
 import fs from 'fs';
 import path from 'path';
+import { FunctionBase } from 'lodash';
 
 interface LooseObject {
-  [key: string]: any;
+  [key: string]: FunctionBase;
 }
 
 const api: LooseObject = {};

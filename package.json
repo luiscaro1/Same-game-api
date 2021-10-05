@@ -1,14 +1,20 @@
 {
-  "name": "Same-voice-api",
+  "name": "Same-game-api",
   "version": "1.0.0",
   "description": "",
   "main": "src/Startup.js",
   "scripts": {
-    "webpack-dev": "BUILD=webpack webpack --watch --stats-error-details",
+    "webpack-dev": "BUILD=WEBPACK webpack --watch --stats-error-details",
     "ts-dev": "nodemon -e ts,js --exec ts-node -r tsconfig-paths/register src/Startup.ts",
     "dc": "BUILD=CONTAINER docker compose -f docker-compose.dev.yml up --build",
     "pc": "BUILD=CONTAINER docker compose -f docker-compose.production.yml up --build",
-    "prepare": "husky install"
+    "build": "webpack",
+    "eslint-check": "npx eslint-config-prettier path/to/main.js",
+    "format": "prettier --write \"**/*.+(ts|tsx|js|jsx|json|yml|yaml|css|md)\"",
+    "lint": "eslint src/**/*",
+    "prepare": "husky install",
+    "migrations-up": "npx knex migrate:up add--knexfile ./src/services/db/Knexfile",
+    "migrations-down": "npx knex migrate:down --knexfile ./src/services/db/Knexfile"
   },
   "lint-staged": {
     "*.+(ts)": [
@@ -35,6 +41,7 @@
     "@types/express": "^4.17.13",
     "@types/lodash": "^4.14.173",
     "@types/lodash-es": "^4.17.5",
+    "@types/uuid": "^8.3.1",
     "@types/webpack-env": "^1.16.2",
     "@typescript-eslint/eslint-plugin": "^4.31.1",
     "@typescript-eslint/parser": "^4.31.1",
@@ -64,8 +71,11 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "knex": "^0.95.11",
     "lodash": "^4.17.21",
     "lodash-es": "^4.17.21",
-    "socket.io": "^4.2.0"
+    "pg": "^8.7.1",
+    "socket.io": "^4.2.0",
+    "uuid": "^8.3.2"
   }
 }

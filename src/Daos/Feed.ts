@@ -25,6 +25,19 @@ class FeedDAO {
       })
       .into('Post');
   }
+
+  public async deletePost(pid: string): Promise<void> {
+    await this.dbContext.db.delete().from('Post').where('pid', '=', pid);
+  }
+
+  public async getPostsByGame(gid: string): Promise<Array<Post>> {
+    const posts = await this.dbContext.db
+      .select()
+      .from('Post')
+      .where('gid', '=', gid);
+
+    return posts;
+  }
 }
 
 export default FeedDAO;

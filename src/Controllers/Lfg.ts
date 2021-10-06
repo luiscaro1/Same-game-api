@@ -23,14 +23,14 @@ class LfgController {
     }
   }
 
-  @route('DELETE', 'delete')
+  @route('DELETE', ':id')
   public static async deleteLobby(
     req: express.Request,
     res: express.Response
   ): Promise<void> {
     // TODO: implement DAO
     try {
-      await LfgController.lfgDAO.deleteLobby(req.body as any);
+      await LfgController.lfgDAO.deleteLobby(req.params.id as any);
       res.status(200).end();
     } catch (err) {
       res.status(400).send(err);

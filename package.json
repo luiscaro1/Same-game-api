@@ -40,6 +40,7 @@
     "@types/express": "^4.17.13",
     "@types/lodash": "^4.14.173",
     "@types/lodash-es": "^4.17.5",
+    "@types/multer": "^1.4.7",
     "@types/uuid": "^8.3.1",
     "@types/webpack-env": "^1.16.2",
     "@typescript-eslint/eslint-plugin": "^4.31.1",
@@ -68,11 +69,14 @@
     "webpack-node-externals": "^3.0.0"
   },
   "dependencies": {
+    "axios": "^0.22.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "form-data": "^4.0.0",
     "knex": "^0.95.11",
     "lodash": "^4.17.21",
     "lodash-es": "^4.17.21",
+    "multer": "^1.4.3",
     "pg": "^8.7.1",
     "socket.io": "^4.2.0",
     "uuid": "^8.3.2"

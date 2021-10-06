@@ -7,7 +7,7 @@ const config = {
       database: 'postgres',
       user: 'postgres',
       password: 'postgres',
-      host: 'game-db',
+      host: 'localhost',
     },
     pool: {
       min: 2,

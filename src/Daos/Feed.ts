@@ -3,7 +3,7 @@ import Inject from '@/Decorators/Inject';
 import Injectable from '@/Decorators/Injectable';
 import DbContext from '@/Db/index';
 
-interface Post {
+interface PostBody {
   gid: string;
   created_at: Date;
   text: string;
@@ -15,7 +15,7 @@ interface Post {
 class FeedDAO {
   @Inject('dbContext') public dbContext!: DbContext;
 
-  public async createPost({ text, gid }: Post, files: any): Promise<void> {
+  public async createPost({ text, gid }: PostBody, files: any): Promise<void> {
     await this.dbContext.db
       .insert({
         gid,
@@ -30,7 +30,7 @@ class FeedDAO {
     await this.dbContext.db.delete().from('Post').where('pid', '=', pid);
   }
 
-  public async getPostsByGame(gid: string): Promise<Array<Post>> {
+  public async getPostsByGame(gid: string): Promise<Array<PostBody>> {
     const posts = await this.dbContext.db
       .select()
       .from('Post')

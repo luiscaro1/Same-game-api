@@ -4,4 +4,6 @@ WORKDIR /app
 
 COPY dist /app/
 
-CMD node bundle.js --bind:0.0.0.0
+ENV NODE_ENV=production
+
+CMD node bundle.js  --bind:0.0.0.0

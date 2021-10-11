@@ -3,6 +3,8 @@ import knexfile from '@/Db/Knexfile';
 
 import Injectable from '@/Decorators/Injectable';
 
+console.log(process.env.DB_HOST);
+
 @Injectable('dbContext')
 class DbContext {
   public db: Knex;

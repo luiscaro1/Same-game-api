@@ -7,7 +7,7 @@ const NodemonPlugin = require('nodemon-webpack-plugin');
 
 module.exports = {
   target: 'node',
-  mode: 'development',
+  mode: process.env.NODE_ENV,
   entry: './src/Startup.ts',
   output: {
     filename: 'bundle.js',

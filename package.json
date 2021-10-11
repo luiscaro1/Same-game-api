@@ -6,8 +6,6 @@
   "scripts": {
     "webpack-dev": "BUILD=WEBPACK webpack --watch --stats-error-details",
     "ts-dev": "nodemon -e ts,js --exec ts-node -r tsconfig-paths/register src/Startup.ts",
-    "dc": "BUILD=CONTAINER docker compose -f docker-compose.dev.yml up --build",
-    "pc": "BUILD=CONTAINER docker compose -f docker-compose.production.yml up --build",
     "build": "webpack",
     "eslint-check": "npx eslint-config-prettier path/to/main.js",
     "format": "prettier --write \"**/*.+(ts|tsx|js|jsx|json|yml|yaml|css|md)\"",

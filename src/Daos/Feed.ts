@@ -1,7 +1,7 @@
 import { v4 as uuid } from 'uuid';
 import Inject from '@/Decorators/Inject';
 import Injectable from '@/Decorators/Injectable';
-import DbContext from '@/Db/index';
+import DbContext from '@/Db/Index';
 
 interface PostBody {
   gid: string;

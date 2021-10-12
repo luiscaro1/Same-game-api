@@ -6,9 +6,7 @@ COPY . /app/
 
 RUN npm i
 
-# uncomment to work with the remote db
-ENV NODE_ENV=production
-
 ENV DB_HOST=game-db
+
 
 CMD npm run webpack-dev  --bind:0.0.0.0

@@ -16,8 +16,8 @@ class LfgController {
     // TODO: implement DAO
 
     try {
-      const lid = await LfgController.lfgDAO.createLobby(req.body as any);
-      res.json(lid);
+      await LfgController.lfgDAO.createLobby(req.body as any);
+      res.status(201).end();
     } catch (err) {
       res.status(400).send(err);
     }

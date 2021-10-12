@@ -1,7 +1,6 @@
-import { v4 as uuid } from 'uuid';
 import Inject from '@/Decorators/Inject';
 import Injectable from '@/Decorators/Injectable';
-import DbContext from '@/Db';
+import DbContext from '@/Db/Index';
 
 interface GameBody {
   name: string;
@@ -13,11 +12,9 @@ interface GameBody {
 class GameDAO {
   @Inject('dbContext') public dbContext!: DbContext;
 
-  public async addGame({ name, released, platforms }: GameBody): Promise<void> {
+  public async addGame({ name, platforms }: GameBody): Promise<void> {
     await this.dbContext.db
       .insert({
-        gid: uuid(),
-        released,
         name,
         platforms,
       })

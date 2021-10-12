@@ -1,7 +1,7 @@
 import { v4 as uuid } from 'uuid';
 import Inject from '@/Decorators/Inject';
 import Injectable from '@/Decorators/Injectable';
-import DbContext from '@/Db/index';
+import DbContext from '@/Db/Index';
 
 interface LobbyBody extends Body {
   uid: string;
@@ -25,17 +25,20 @@ class LfgDAO {
     uid,
     gid,
     description,
-  }: LobbyBody): Promise<string> {
-    const lid = uuid();
+  }: LobbyBody): Promise<void> {
+    console.log({
+      uid,
+      gid,
+      description,
+    });
+
     await this.dbContext.db
       .insert({
-        lid,
-        members: [uid],
+        uid,
         gid,
         description,
       })
       .into('Lobby');
-    return lid;
   }
 
   public async deleteLobby(lid: string): Promise<void> {

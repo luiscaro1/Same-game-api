@@ -5,6 +5,7 @@ import DbContext from '@/Db/Index';
 
 interface PostBody {
   gid: string;
+  uid: string;
   created_at: Date;
   text: string;
 }
@@ -15,9 +16,13 @@ interface PostBody {
 class FeedDAO {
   @Inject('dbContext') public dbContext!: DbContext;
 
-  public async createPost({ text, gid }: PostBody, files: any): Promise<void> {
+  public async createPost(
+    { text, gid, uid }: PostBody,
+    files: any
+  ): Promise<void> {
     await this.dbContext.db
       .insert({
+        uid,
         gid,
         pid: uuid(),
         text,

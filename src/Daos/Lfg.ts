@@ -2,6 +2,7 @@ import { v4 as uuid } from 'uuid';
 import Inject from '@/Decorators/Inject';
 import Injectable from '@/Decorators/Injectable';
 import DbContext from '@/Db/Index';
+import SocketServer from '@/SocketServer';
 
 interface LobbyBody extends Body {
   uid: string;
@@ -21,6 +22,8 @@ interface Lobby {
 class LfgDAO {
   @Inject('dbContext') public dbContext!: DbContext;
 
+  @Inject('socketServer') public socketServer!: SocketServer;
+
   public async createLobby({
     uid,
     gid,
@@ -39,6 +42,8 @@ class LfgDAO {
         description,
       })
       .into('Lobby');
+
+    this.socketServer.socket.emit('NEW_LOBBY');
   }
 
   public async deleteLobby(lid: string): Promise<void> {

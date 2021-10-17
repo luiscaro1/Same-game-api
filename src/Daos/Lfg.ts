@@ -8,6 +8,8 @@ interface LobbyBody extends Body {
   uid: string;
   gid: string;
   description: string;
+  platform: string;
+  region: string;
 }
 
 interface Lobby {
@@ -16,6 +18,8 @@ interface Lobby {
   members: Array<string>;
   created_at: Date;
   updated_at: Date;
+  platform: string;
+  region: string;
 }
 
 @Injectable('lfgDAO')
@@ -28,18 +32,16 @@ class LfgDAO {
     uid,
     gid,
     description,
+    platform,
+    region,
   }: LobbyBody): Promise<void> {
-    console.log({
-      uid,
-      gid,
-      description,
-    });
-
     await this.dbContext.db
       .insert({
+        region,
         uid,
         gid,
         description,
+        platform,
       })
       .into('Lobby');
 
@@ -52,12 +54,24 @@ class LfgDAO {
   }
 
   public async getLobbiesByGame(gid: string): Promise<Array<Lobby>> {
-    const lobbies = await this.dbContext.db
-      .select()
-      .from('Lobby')
-      .where('gid', '=', gid);
-
+    const { db } = this.dbContext;
+    const lobbies = (
+      await db.raw(`select * from "Lobby" as L natural inner join (select uid,user_name from "User" as U where U.uid=uid
+      ) as foo  order by created_at desc`)
+    ).rows;
     return lobbies;
+  }
+
+  public async joinLobby({
+    lid,
+    gid,
+    uid,
+  }: {
+    lid: string;
+    gid: string;
+    uid: string;
+  }): Promise<void> {
+    await this.dbContext.db.insert({ lid, gid, uid }).into('UserLobby');
   }
 }
 

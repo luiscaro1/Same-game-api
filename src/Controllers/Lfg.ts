@@ -52,6 +52,18 @@ class LfgController {
       res.status(400).send(err);
     }
   }
+
+  @route('POST', 'join')
+  public static async joinLobby(
+    req: express.Request,
+    res: express.Response
+  ): Promise<void> {
+    try {
+      await LfgController.lfgDAO.joinLobby(req.body as any);
+    } catch (err) {
+      res.status(400).send(err);
+    }
+  }
 }
 
 export default LfgController;

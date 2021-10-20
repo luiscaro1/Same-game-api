@@ -1,4 +1,3 @@
-import { v4 as uuid } from 'uuid';
 import Inject from '@/Decorators/Inject';
 import Injectable from '@/Decorators/Injectable';
 import DbContext from '@/Db/Index';
@@ -10,6 +9,8 @@ interface LobbyBody extends Body {
   description: string;
   platform: string;
   region: string;
+  mic: boolean;
+  rank: string;
 }
 
 interface Lobby {
@@ -20,6 +21,8 @@ interface Lobby {
   updated_at: Date;
   platform: string;
   region: string;
+  mic: boolean;
+  rank: string;
 }
 
 @Injectable('lfgDAO')
@@ -34,6 +37,8 @@ class LfgDAO {
     description,
     platform,
     region,
+    mic,
+    rank,
   }: LobbyBody): Promise<void> {
     await this.dbContext.db
       .insert({
@@ -42,6 +47,8 @@ class LfgDAO {
         gid,
         description,
         platform,
+        mic,
+        rank,
       })
       .into('Lobby');
 
@@ -56,8 +63,28 @@ class LfgDAO {
   public async getLobbiesByGame(gid: string): Promise<Array<Lobby>> {
     const { db } = this.dbContext;
     const lobbies = (
-      await db.raw(`select * from "Lobby" as L natural inner join (select uid,user_name from "User" as U where U.uid=uid
-      ) as foo  order by created_at desc`)
+      await db.raw(`select * from "Lobby" as L natural inner join (select uid,user_name,avatar_url from "User")as U
+    where l.uid = U.uid and l.gid='${gid}' order by created_at desc`)
+    ).rows;
+
+    return lobbies;
+  }
+
+  public async getLobbyById(lid: string): Promise<Array<Lobby>> {
+    const { db } = this.dbContext;
+    const lobby = (
+      await db.raw(`select * from "Lobby" as L natural inner join (select uid,user_name,avatar_url from "User")as U
+    where l.uid = U.uid and l.lid='${lid}' order by created_at desc`)
+    ).rows[0];
+
+    return lobby;
+  }
+
+  public async getLobbiesByUser(uid: string): Promise<Array<Lobby>> {
+    const { db } = this.dbContext;
+    const lobbies = (
+      await db.raw(`select * from "Lobby" as L natural inner join (select uid,user_name,avatar_url from "User")as U
+    where l.uid = U.uid and l.uid='${uid}' order by created_at desc`)
     ).rows;
     return lobbies;
   }

@@ -1,4 +1,3 @@
-import { v4 as uuid } from 'uuid';
 import Inject from '@/Decorators/Inject';
 import Injectable from '@/Decorators/Injectable';
 import DbContext from '@/Db/Index';
@@ -24,7 +23,6 @@ class FeedDAO {
       .insert({
         uid,
         gid,
-        pid: uuid(),
         text,
         attachments: files,
       })

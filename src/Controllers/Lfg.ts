@@ -64,6 +64,34 @@ class LfgController {
       res.status(400).send(err);
     }
   }
+
+  @route('GET', 'user/:id')
+  public static async getLobbiesByUser(
+    req: express.Request,
+    res: express.Response
+  ) {
+    try {
+      const lobbies = await LfgController.lfgDAO.getLobbiesByUser(
+        req.params.id
+      );
+      res.json(lobbies);
+    } catch (err) {
+      res.status(400).send(err);
+    }
+  }
+
+  @route('GET', 'lobby/:id')
+  public static async getLobbyById(
+    req: express.Request,
+    res: express.Response
+  ) {
+    try {
+      const lobby = await LfgController.lfgDAO.getLobbyById(req.params.id);
+      res.json(lobby);
+    } catch (err) {
+      res.status(400).send(err);
+    }
+  }
 }
 
 export default LfgController;

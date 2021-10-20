@@ -6,7 +6,7 @@ COPY . /app/
 
 RUN npm i
 
-ENV DB_HOST=game-db
-
+ENV MEDIA http://media-api:5002/stream/upload
+ENV CLIENT_URL http://localhost:3000
 
 CMD npm run webpack-dev  --bind:0.0.0.0

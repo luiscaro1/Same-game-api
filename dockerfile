@@ -4,15 +4,16 @@ WORKDIR /app
 
 COPY package.json /app/
 
-RUN npm install 
+RUN npm i --only=production --ignore-scripts
 
-COPY dist /app/
+COPY dist/prod.js /app/
 
+ENV NODE_ENV production
 ENV BUILD WEBPACK
 ENV MEDIA https://same-media-api.herokuapp.com/stream/upload
 ENV CLIENT_URL https://same-client-ui.herokuapp.com
 
-CMD node bundle.js --bind:0.0.0.0
+CMD node prod.js --bind:0.0.0.0
 
 
 

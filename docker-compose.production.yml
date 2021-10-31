@@ -3,11 +3,8 @@ version: '3'
 services:
   game-api:
     build:
-      dockerfile: dockerfile.prod
+      dockerfile: dockerfile
       context: .
     restart: always
-    volumes:
-      - '.:/app'
     ports:
       - '5004:5004'
-  

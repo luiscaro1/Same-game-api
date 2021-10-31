@@ -1,8 +1,8 @@
-import express from "express";
-import { find } from "lodash";
-import Injectable from "@/Decorators/Injectable";
+import express from 'express';
+import { find } from 'lodash';
+import Injectable from '@/Decorators/Injectable';
 
-@Injectable("router")
+@Injectable('router')
 class Router {
   public router: express.Router;
 

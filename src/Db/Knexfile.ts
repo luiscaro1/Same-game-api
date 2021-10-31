@@ -28,6 +28,7 @@ const config = {
       database: 'postgres',
       user: 'postgres',
       password: 'postgres',
+      host: 'db',
     },
     pool: {
       min: 2,

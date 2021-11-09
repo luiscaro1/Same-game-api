@@ -92,6 +92,21 @@ class LfgController {
       res.status(400).send(err);
     }
   }
+
+  @route('GET', 'members/:id')
+  public static async getMembersInLobby(
+    req: express.Request,
+    res: express.Response
+  ) {
+    try {
+      const members = await LfgController.lfgDAO.getMembersInLobby(
+        req.params.id as string
+      );
+      res.json(members);
+    } catch (err) {
+      res.status(400).send(err);
+    }
+  }
 }
 
 export default LfgController;

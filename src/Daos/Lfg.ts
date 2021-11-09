@@ -25,6 +25,14 @@ interface Lobby {
   rank: string;
 }
 
+interface UserLobby {
+  gid: string;
+  uid: string;
+  lid: string;
+  created_at: Date;
+  updated_at: Date;
+}
+
 @Injectable('lfgDAO')
 class LfgDAO {
   @Inject('dbContext') public dbContext!: DbContext;
@@ -99,6 +107,24 @@ class LfgDAO {
     uid: string;
   }): Promise<void> {
     await this.dbContext.db.insert({ lid, gid, uid }).into('UserLobby');
+  }
+
+  public async getMembersInLobby(
+    lid: string
+  ): Promise<{ [uid: string]: UserLobby }> {
+    const members = (
+      await this.dbContext.db
+        .raw(`select * from "UserLobby" as UL natural inner join (select uid,user_name,avatar_url from "User") as U
+    where UL.uid = U.uid and UL.lid = '${lid}'`)
+    ).rows;
+
+    const dict: { [uid: string]: UserLobby } = {};
+
+    members.forEach((member: UserLobby) => {
+      dict[member.uid] = member;
+    });
+
+    return dict;
   }
 }
 

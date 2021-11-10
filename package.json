@@ -2,9 +2,9 @@
   "name": "Same-game-api",
   "version": "1.0.0",
   "description": "",
-  "main": "src/Startup.js",
+  "main": "Startup.js",
   "scripts": {
-    "webpack-dev": "BUILD=WEBPACK webpack --watch --stats-error-details",
+    "webpack-dev": "BUILD=WEBPACK webpack --config webpack.dev.config  --watch --stats-error-details",
     "ts-dev": "nodemon -e ts,js --exec ts-node -r tsconfig-paths/register src/Startup.ts",
     "build": "webpack",
     "eslint-check": "npx eslint-config-prettier path/to/main.js",

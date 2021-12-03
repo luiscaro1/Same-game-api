@@ -1,6 +1,7 @@
 import Inject from '@/Decorators/Inject';
 import Injectable from '@/Decorators/Injectable';
 import DbContext from '@/Db/Index';
+import SocketServer from '@/SocketServer';
 
 interface PostBody {
   gid: string;
@@ -15,6 +16,8 @@ interface PostBody {
 class FeedDAO {
   @Inject('dbContext') public dbContext!: DbContext;
 
+  @Inject('socketServer') public socketServer!: SocketServer;
+
   public async createPost(
     { text, gid, uid }: PostBody,
     files: any
@@ -27,6 +30,7 @@ class FeedDAO {
         attachments: files,
       })
       .into('Post');
+    this.socketServer.socket.emit('NEW_POST');
   }
 
   public async deletePost(pid: string): Promise<void> {
@@ -35,9 +39,11 @@ class FeedDAO {
 
   public async getPostsByGame(gid: string): Promise<Array<PostBody>> {
     const posts = await this.dbContext.db
+
       .select()
       .from('Post')
-      .where('gid', '=', gid);
+      .where('gid', '=', gid)
+      .orderBy('created_at', 'desc');
 
     return posts;
   }

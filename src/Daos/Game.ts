@@ -23,6 +23,7 @@ class GameDAO {
 
   public async getAllGames(): Promise<Array<GameBody>> {
     const games = await this.dbContext.db.select().from('Game');
+    console.log(games);
 
     return games;
   }

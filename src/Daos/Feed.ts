@@ -51,6 +51,16 @@ class FeedDAO {
 
     return posts;
   }
+
+  public async getPostsByUser(uid: string): Promise<Array<PostBody>> {
+    const { db } = this.dbContext;
+    const posts = (
+      await db.raw(`select * from "Post" as L natural inner join (select uid,user_name,avatar_url from "User")as U
+    where l.uid = U.uid and l.uid='${uid}' order by created_at desc`)
+    ).rows;
+
+    return posts;
+  }
 }
 
 export default FeedDAO;

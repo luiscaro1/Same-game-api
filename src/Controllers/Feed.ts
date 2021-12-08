@@ -44,8 +44,22 @@ class FeedController {
     res: express.Response
   ): Promise<void> {
     try {
-      console.log(req.params);
       const posts = await FeedController.feedDAO.getPostsByGame(
+        req.params.id as any
+      );
+      res.json(posts);
+    } catch (err) {
+      res.status(400).send(err);
+    }
+  }
+
+  @route('GET', 'user/:id')
+  public static async getPostsByUser(
+    req: express.Request,
+    res: express.Response
+  ): Promise<void> {
+    try {
+      const posts = await FeedController.feedDAO.getPostsByUser(
         req.params.id as any
       );
       res.json(posts);

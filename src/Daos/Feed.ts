@@ -38,12 +38,16 @@ class FeedDAO {
   }
 
   public async getPostsByGame(gid: string): Promise<Array<PostBody>> {
-    const posts = await this.dbContext.db
+    const { db } = this.dbContext;
+    const posts = (
+      await db.raw(`select * from "Post" as L natural inner join (select uid,user_name,avatar_url from "User")as U
+    where l.uid = U.uid order by created_at desc`)
+    ).rows;
 
-      .select()
-      .from('Post')
-      .where('gid', '=', gid)
-      .orderBy('created_at', 'desc');
+    // .select()
+    // .from('Post')
+    // .where('gid', '=', gid)
+    // .orderBy('created_at', 'desc');
 
     return posts;
   }
